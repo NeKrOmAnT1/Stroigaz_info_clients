@@ -1,0 +1,49 @@
+﻿<Window x:Class="Stroigaz_info_clients.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Stroigaz_info_clients"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewmodels ="clr-namespace:Stroigaz_info_clients.ViewModels"
+        mc:Ignorable="d"
+        Title="СТРОЙГАЗ" Height="450" Width="800" WindowState="Maximized">
+    <Window.DataContext>
+        <viewmodels:MainWindowViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu>
+            <MenuItem Header="Файл">
+                <MenuItem Header="Сохранить" ToolTip="ctrl+s"/>
+            </MenuItem>
+        </Menu>
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+            <ComboBox Width="80" Margin="0 0 10 6" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Фильтр">
+                <ComboBoxItem Content="Раз"/>
+                <ComboBoxItem Content="Два"/>
+                <ComboBoxItem Content="Три"/>
+            </ComboBox>
+            <TextBox Width="150" Style="{StaticResource MaterialDesignTextBox}" FontSize="15" materialDesign:HintAssist.Hint="Поиск" Height="30"/>
+            <Button  Content="Найти" Height="30"/>
+        </StackPanel>
+
+        <DataGrid Name="fs" Grid.Row="1" ItemsSource="{Binding Info}" SelectedItem="{Binding selectedItem}" AutoGenerateColumns="True">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Удалить" Command="{Binding DeleteItemCommand}" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridTextColumn FontSize="15" Header="Заказчик" Binding="{Binding Сlientele}" Width="*"/>
+                <DataGridTextColumn FontSize="15" Header="Email" Binding="{Binding Email}" Width="*"/>
+                <DataGridTextColumn FontSize="15" Header="Телефон" Binding="{Binding Phone}" Width="*"/>
+                <DataGridTextColumn FontSize="15" Header="Назначенная бригада" Binding="{Binding Number_Brigade}" Width="*"/>
+                <DataGridTextColumn FontSize="15" Header="План постройки" Binding="{Binding Construction_Plan}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
